@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>My Books</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">📚 My Book Library</a>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h3 class="text-center mb-3">All Books</h3>
+  <div class="row">
+    <div class="col-md-3 mb-4" th:each="book : ${allBooks}">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          <h5 th:text="${book.title}"></h5>
+          <p th:text="'By ' + ${book.author}"></p>
+          <p th:text="'Genre: ' + ${book.genre}"></p>
+          <form th:action="@{'/user/buy/' + ${book.id}}" method="post">
+            <button class="btn btn-primary btn-sm">Buy / Read</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="text-center mt-5 mb-3">My Purchased Books</h3>
+  <div class="row">
+    <div class="col-md-3 mb-4" th:each="book : ${purchasedBooks}">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          <h5 th:text="${book.title}"></h5>
+          <p th:text="'By ' + ${book.author}"></p>
+          <a th:href="${book.pdfUrl}" class="btn btn-success btn-sm" target="_blank">Read Book</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
